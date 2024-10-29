@@ -80,7 +80,11 @@ class TestSpreadSheet(TestCase):
         self.assertEqual(9, spreadsheet.evaluate("A1"))
 
 
-
+    def test_formula_aithmetic_references_valid(self):
+        spreadsheet=SpreadSheet()
+        spreadsheet.set("A1","=1+B1")
+        spreadsheet.set("B1","3")
+        self.assertEqual(4,spreadsheet.evaluate("A1"))
 
 
 

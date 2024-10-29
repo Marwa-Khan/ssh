@@ -20,12 +20,13 @@ class SpreadSheet:
             else:
                 result = "#Error"
         elif value.startswith("="):
-            if value[1:].startswith("'") and value[1:].endswith("'"):
-                result = value[2:-1]
-            elif value[1:].isnumeric():
-                result = int(value[1:])
-            elif value[1:] in self._cells:
-                referenced_value = self.evaluate(value[1:])
+            expr = value[1:]
+            if expr.startswith("'") and expr.endswith("'"):
+                result = expr[1:-1]
+            elif expr.isnumeric():
+                result = int(expr)
+            elif expr in self._cells:
+                referenced_value = self.evaluate(expr)
                 if isinstance(referenced_value, int):
                     result = referenced_value
                 else:
@@ -33,7 +34,7 @@ class SpreadSheet:
             else:
                 try:
                     # Evaluate the arithmetic expression safely
-                    result = eval(value[1:], {"__builtins__": None}, {})
+                    result = eval(expr, {"__builtins__": None}, self._cells)
                     if not isinstance(result, int):
                         raise ValueError
                 except:
