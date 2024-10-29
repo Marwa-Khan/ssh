@@ -27,5 +27,11 @@ class TestSpreadSheet(TestCase):
     def test_valid_formulas_string(self):
         spreadsheet=SpreadSheet()
         spreadsheet.set("A1", "='Apple'")
-        spreadsheet.set("Apple",spreadsheet.evaluate("A1"))
+        self.assertEqual("Apple",spreadsheet.evaluate("A1"))
+
+    def test_formula_evaluate_valid_integer(self):
+        spreadsheet=SpreadSheet()
+        spreadsheet.set("A1","=5")
+        self.assertEqual(5,spreadsheet.evaluate("A1"))
+
 

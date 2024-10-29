@@ -13,6 +13,13 @@ class SpreadSheet:
             return "#Error"
         if value.startswith("'") and value.endswith("'"):
             return value[1:-1]
+        if value.startswith("="):
+            if value[1:].startswith("'") and value.endswith("'"):
+                return value[2:-1]
+            try:
+                return int(value[1:])
+            except ValueError:
+                return "Error"
         try:
             return int(value)
         except ValueError:
