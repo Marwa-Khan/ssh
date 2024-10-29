@@ -17,9 +17,15 @@ class SpreadSheet:
         elif value.startswith("="):
             if value[1:].startswith("'") and value[1:].endswith("'"):
                 return value[2:-1]
-            try:
+            elif value[1:].isnumeric():
                 return int(value[1:])
-            except ValueError:
+            elif value[1:] in self._cells:
+                referenced_value = self._cells[value[1:]]
+                if referenced_value.isnumeric():
+                    return int(referenced_value)
+                else:
+                    return "#Error"
+            else:
                 return "#Error"
         else:
             try:
