@@ -69,6 +69,12 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1+3.5")
         self.assertEqual("#Error", spreadsheet.evaluate("A1"))
 
+    def test_formula_arithmetic_divideByZero_error(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1","=1/0")
+        self.assertEqual("#Error",spreadsheet.evaluate("A1"))
+
+
 
 
 
