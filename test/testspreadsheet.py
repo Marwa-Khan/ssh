@@ -23,3 +23,9 @@ class TestSpreadSheet(TestCase):
         spreadsheet=SpreadSheet()
         spreadsheet.set("A1","'Apple")
         self.assertEqual("#Error",spreadsheet.evaluate("A1"))
+
+    def test_valid_formulas_string(self):
+        spreadsheet=SpreadSheet()
+        spreadsheet.set("A1", "='Apple'")
+        spreadsheet.set("Apple",spreadsheet.evaluate("A1"))
+
