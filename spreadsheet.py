@@ -30,14 +30,14 @@ class SpreadSheet:
                     result = referenced_value
                 else:
                     result = "#Error"
-            elif '+' in value[1:]:
-                parts = value[1:].split('+')
-                if all(part.strip().isnumeric() for part in parts):
-                    result = sum(int(part.strip()) for part in parts)
-                else:
-                    result = "#Error"
             else:
-                result = "#Error"
+                try:
+                    # Evaluate the arithmetic expression safely
+                    result = eval(value[1:], {"__builtins__": None}, {})
+                    if not isinstance(result, int):
+                        raise ValueError
+                except:
+                    result = "#Error"
         else:
             try:
                 result = int(value)
