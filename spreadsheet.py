@@ -34,7 +34,7 @@ class SpreadSheet:
             else:
                 try:
                     # Evaluate the arithmetic expression safely
-                    result = eval(expr, {"__builtins__": None}, self._cells)
+                    result = eval(expr, {"__builtins__": None}, {k: v if isinstance(v, int) else 0 for k, v in self._cells.items()})
                     if not isinstance(result, int):
                         raise ValueError
                 except:
