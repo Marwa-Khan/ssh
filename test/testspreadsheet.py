@@ -64,6 +64,11 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1","=1+3")
         self.assertEqual(4,spreadsheet.evaluate("A1"))
 
+    def test_formula_arithmetic_error(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=1+3.5")
+        self.assertEqual("#Error", spreadsheet.evaluate("A1"))
+
 
 
 
